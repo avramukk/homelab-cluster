@@ -12,21 +12,23 @@ spec:
       labels:
         app: linkding
     spec:
+      securityContext:
+        fsGroup: 33 # www-data group ID
+        runAsUser: 33 # www-data user ID
+        runAsGroup: 33 # www-data group ID
+
       containers:
         - name: linkding
           image: sissbruecker/linkding:1.31.0
           ports:
             - containerPort: 9090
+
+          securityContext:
+            allowPrivilegeEscalation: false
+
           volumeMounts:
             - name: linkding-data
               mountPath: /etc/linkding/data
-          securityContext:
-            runAsUser: 1000
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-      securityContext:
-        fsGroup: 1000  # Grants group write access for non-root user
-      
       volumes:
         - name: linkding-data
           persistentVolumeClaim:
