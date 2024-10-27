@@ -20,6 +20,11 @@ spec:
           volumeMounts:
             - name: linkding-data
               mountPath: /etc/linkding/data
+          securityContext:
+            runAsUser: 1000
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
       volumes:
         - name: linkding-data
           persistentVolumeClaim:
