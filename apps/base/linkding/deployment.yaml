@@ -23,8 +23,10 @@ spec:
           securityContext:
             runAsUser: 1000
             runAsNonRoot: true
-            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+      securityContext:
+        fsGroup: 1000  # Grants group write access for non-root user
+      
       volumes:
         - name: linkding-data
           persistentVolumeClaim:
